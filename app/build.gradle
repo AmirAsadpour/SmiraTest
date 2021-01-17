@@ -29,8 +29,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -58,6 +58,8 @@ dependencies {
     // DI
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     annotationProcessor "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltLifecycleVersion"
+    annotationProcessor "androidx.hilt:hilt-compiler:$hiltLifecycleVersion"
 
     // Networking
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"

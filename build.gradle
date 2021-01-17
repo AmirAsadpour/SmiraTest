@@ -47,4 +47,5 @@ ext {
     recyclerViewVersion = '1.2.0-beta01'
     gsonVersion = '2.8.6'
     rxJavaVersion = '3.0.9'
+    hiltLifecycleVersion = '1.0.0-alpha02'
 }
