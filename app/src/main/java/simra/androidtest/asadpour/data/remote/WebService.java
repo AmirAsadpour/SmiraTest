@@ -2,10 +2,10 @@ package simra.androidtest.asadpour.data.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squareup.picasso.BuildConfig;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.rxjava3.core.Single;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -13,12 +13,18 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+import simra.androidtest.asadpour.BuildConfig;
+import simra.androidtest.asadpour.data.model.response.SearchResponse;
 
 public interface WebService {
 
+    @GET("/")
+    Single<SearchResponse> searchMovies(@Query("s") String query, @Query("Page") int page);
 
     class Creator {
-        public static String ENDPOINT = "http://www.omdbapi.com/";
+        public static String ENDPOINT = "https://www.omdbapi.com/";
         static Long CONNECT_TIMEOUT = 20L;
         static Long READ_TIMEOUT = 20L;
 
@@ -33,7 +39,6 @@ public interface WebService {
             OkHttpClient client = new OkHttpClient.Builder()
                     .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                     .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-                    .addInterceptor(loggingInterceptor)
                     .addInterceptor(chain -> {
                         Request request = chain.request();
                         HttpUrl url = request.url().newBuilder()
@@ -42,6 +47,7 @@ public interface WebService {
                         request = request.newBuilder().url(url).build();
                         return chain.proceed(request);
                     })
+                    .addInterceptor(loggingInterceptor)
                     .build();
 
             Gson gson = new GsonBuilder().create();

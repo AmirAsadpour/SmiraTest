@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RoundedImageShapeOverlay" parent="">
+        <item name="cornerSize">@dimen/movie_image_corner_size</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+</resources>

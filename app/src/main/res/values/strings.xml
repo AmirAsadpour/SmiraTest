@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SimraTest-Asadpour</string>
+    <string name="hint_search">Search...</string>
+    <string name="msg_error_general">There wan an error</string>
+    <string name="action_try_again">Try Again</string>
+    <string name="label_year">Year: %s</string>
 </resources>
