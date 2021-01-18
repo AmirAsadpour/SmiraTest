@@ -20,6 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-keep class simra.androidtest.asadpour.data.model.** { *; }
+
 -keepattributes *Annotation*, InnerClasses
 -dontnote kotlinx.serialization.SerializationKt
 -keep,includedescriptorclasses class simra.androidtest.asadpour.**$$serializer { *; } # <-- change package name to your app's
