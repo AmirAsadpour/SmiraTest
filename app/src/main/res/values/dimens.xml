@@ -12,4 +12,5 @@
     <dimen name="size_movie_image">160dp</dimen>
     <dimen name="text_size_search">15sp</dimen>
     <dimen name="movie_image_corner_size">10dp</dimen>
+    <dimen name="height_rating_value">10dp</dimen>
 </resources>

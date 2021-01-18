@@ -8,7 +8,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FDFDFD"
+        android:background="@drawable/bg_lighter_back"
         android:padding="@dimen/spacing_medium">
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -20,7 +20,7 @@
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLines="1"
-            android:padding="@dimen/spacing_medium"
+            android:padding="@dimen/spacing_sm"
             android:textSize="@dimen/text_size_search" />
 
     </FrameLayout>

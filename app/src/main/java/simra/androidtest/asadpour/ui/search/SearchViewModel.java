@@ -27,6 +27,7 @@ public class SearchViewModel extends BaseViewModel {
 
     private final MutableLiveData<Boolean> mLoadMoreProgress = new MutableLiveData<>();
     private final SingleLiveEvent<Throwable> mLoadMoreError = new SingleLiveEvent<>();
+    private final MutableLiveData<Boolean> mShowEmptyState = new MutableLiveData<>();
 
     private Disposable mInitialSearchDisposable;
 
@@ -57,7 +58,13 @@ public class SearchViewModel extends BaseViewModel {
         return mLoadMoreError;
     }
 
+    public LiveData<Boolean> getShowEmptyState() {
+        return mShowEmptyState;
+    }
+
     public void performSearch(String query) {
+        // resetting empty state
+        mShowEmptyState.setValue(false);
         mShowProgress.setValue(true);
         if (mInitialSearchDisposable != null) mInitialSearchDisposable.dispose();
         mInitialSearchDisposable = movieRepository.searchMovies(query, 1)
@@ -70,7 +77,8 @@ public class SearchViewModel extends BaseViewModel {
                         mCurrentQuery = query;
                         mMovies.setValue(miniMovies);
                     } else {
-                        mShowError.setValue(throwable);
+                        if (throwable instanceof NullPointerException) mShowEmptyState.setValue(true);
+                        else mShowError.setValue(throwable);
                     }
                 });
         disposables.add(mInitialSearchDisposable);
@@ -89,7 +97,8 @@ public class SearchViewModel extends BaseViewModel {
                         newList.addAll(miniMovies);
                         mMovies.setValue(newList);
                     } else {
-                        mLoadMoreError.setValue(throwable);
+                        if (!(throwable instanceof NullPointerException))
+                            mLoadMoreError.setValue(throwable);
                     }
                 }));
     }

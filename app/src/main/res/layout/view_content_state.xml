@@ -33,9 +33,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_sm"
-            android:background="@android:color/transparent"
-            android:clickable="true"
-            android:focusable="true"
             android:text="@string/action_try_again" />
     </LinearLayout>
 </FrameLayout>

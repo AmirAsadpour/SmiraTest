@@ -46,6 +46,13 @@ public class ContentStateView extends FrameLayout {
         });
     }
 
+    public void showEmptyState(String message) {
+        binding.progressBar.setVisibility(GONE);
+        binding.errorFrame.setVisibility(VISIBLE);
+        binding.errorMessageText.setText(message);
+        binding.actionButton.setVisibility(GONE);
+    }
+
     public interface Listener {
         void onRetry();
     }

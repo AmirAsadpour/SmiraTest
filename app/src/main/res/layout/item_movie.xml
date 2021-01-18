@@ -13,7 +13,7 @@
         android:layout_height="@dimen/size_movie_image"
         android:background="#fff"
         android:scaleType="centerCrop"
-        app:backgroundTint="@color/bg_disabled_on_background"
+        app:backgroundTint="@color/color_bg_disabled"
         app:layout_constraintDimensionRatio="1:1.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

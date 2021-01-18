@@ -72,6 +72,18 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
         mViewModel.getShowError().observe(getViewLifecycleOwner(), this::showError);
         mViewModel.getLoadMoreProgress().observe(getViewLifecycleOwner(), this::showLoadMoreProgress);
         mViewModel.getLoadMoreError().observe(getViewLifecycleOwner(), this::showLoadMoreError);
+        mViewModel.getShowEmptyState().observe(getViewLifecycleOwner(), this::showEmptyState);
+    }
+
+    private void showEmptyState(Boolean show) {
+        if (show != null && show) {
+            getBinding().recyclerView.setVisibility(View.GONE);
+            getBinding().contentStateView.setVisibility(View.VISIBLE);
+            getBinding().contentStateView.showEmptyState(getString(R.string.msg_empty_result));
+        } else {
+            getBinding().contentStateView.setVisibility(View.GONE);
+            getBinding().recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void showLoadMoreError(Throwable throwable) {
@@ -81,8 +93,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
                 mViewModel.retryLoadMore();
             });
         }
-        if (!mLoadMoreErrorSnack.isShown())
-            mLoadMoreErrorSnack.show();
+
+        mLoadMoreErrorSnack.show();
     }
 
     private void showLoadMoreProgress(Boolean show) {
