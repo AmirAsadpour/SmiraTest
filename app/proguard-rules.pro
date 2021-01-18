@@ -19,3 +19,13 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keepattributes *Annotation*, InnerClasses
+-dontnote kotlinx.serialization.SerializationKt
+-keep,includedescriptorclasses class simra.androidtest.asadpour.**$$serializer { *; } # <-- change package name to your app's
+-dontwarn java.util.concurrent.Flow*
+-keep enum simra.androidtest.asadpour.** {*;}
+-keepclassmembers class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator CREATOR;
+}
+-keep class io.reactivex.rxjava3.disposables.RunnableDisposable { <init>(...); }
