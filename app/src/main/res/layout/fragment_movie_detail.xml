@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/contentGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="headerLayout,actorsTitleText,actorsText, actorsDivider, plotText, plotTitleText, plotDivider, ratingTitleText, ratingsRecyclerView" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headerLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#DDDDDD"
+            android:padding="@dimen/spacing_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/movieImage"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_movie_image"
+                android:background="#fff"
+                android:scaleType="centerCrop"
+                app:backgroundTint="@color/bg_disabled_on_background"
+                app:layout_constraintDimensionRatio="1:1.52"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/RoundedImageShapeOverlay" />
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:layout_marginLeft="@dimen/spacing_medium"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/yearText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/movieImage"
+                app:layout_constraintTop_toTopOf="@id/movieImage"
+                app:layout_constraintVertical_chainStyle="spread_inside"
+                tools:text="The good, The bad and the ugly" />
+
+            <TextView
+                android:id="@+id/yearText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_year"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintBottom_toTopOf="@id/releaseText"
+                app:layout_constraintStart_toStartOf="@id/titleText"
+                app:layout_constraintTop_toBottomOf="@id/titleText" />
+
+            <TextView
+                android:id="@+id/releaseText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_released"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintBottom_toTopOf="@id/directorText"
+                app:layout_constraintStart_toStartOf="@id/titleText"
+                app:layout_constraintTop_toBottomOf="@id/yearText" />
+
+            <TextView
+                android:id="@+id/directorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_director"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintBottom_toTopOf="@id/typeText"
+                app:layout_constraintStart_toStartOf="@id/titleText"
+                app:layout_constraintTop_toBottomOf="@id/releaseText" />
+
+            <TextView
+                android:id="@+id/typeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/titleText"
+                app:layout_constraintTop_toBottomOf="@id/directorText"
+                tools:text="Movie" />
+
+            <TextView
+                android:id="@+id/genreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:layout_marginLeft="@dimen/spacing_medium"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintStart_toEndOf="@id/typeText"
+                app:layout_constraintTop_toTopOf="@id/typeText"
+                tools:text="Genre" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/actorsTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/label_actors"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerLayout" />
+
+        <TextView
+            android:id="@+id/actorsText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/actorsTitleText"
+            app:layout_constraintTop_toBottomOf="@id/actorsTitleText"
+            tools:text="This is a text that is interesting and needs to be displayed by this interesting" />
+
+        <FrameLayout
+            android:id="@+id/actorsDivider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:background="?attr/dividerHorizontal"
+            app:layout_constraintEnd_toEndOf="@id/actorsText"
+            app:layout_constraintStart_toStartOf="@id/actorsText"
+            app:layout_constraintTop_toBottomOf="@id/actorsText" />
+
+        <TextView
+            android:id="@+id/plotTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/label_plot"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/actorsTitleText"
+            app:layout_constraintTop_toBottomOf="@id/actorsDivider" />
+
+        <TextView
+            android:id="@+id/plotText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/actorsText"
+            app:layout_constraintStart_toStartOf="@id/actorsText"
+            app:layout_constraintTop_toBottomOf="@id/plotTitleText"
+            tools:text="This is a text that is interesting and needs to be displayed by this interesting" />
+
+        <FrameLayout
+            android:id="@+id/plotDivider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:background="?attr/dividerHorizontal"
+            app:layout_constraintEnd_toEndOf="@id/plotText"
+            app:layout_constraintStart_toStartOf="@id/plotText"
+            app:layout_constraintTop_toBottomOf="@id/plotText" />
+
+        <simra.androidtest.asadpour.util.view.ContentStateView
+            android:id="@+id/contentStateView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_extra_large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ratingTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/label_ratings"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/actorsTitleText"
+            app:layout_constraintTop_toBottomOf="@id/plotDivider" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ratingsRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/actorsText"
+            app:layout_constraintStart_toStartOf="@id/actorsTitleText"
+            app:layout_constraintTop_toBottomOf="@id/ratingTitleText"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_rating" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -13,15 +13,17 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import kotlin.jvm.functions.Function3;
+import simra.androidtest.asadpour.R;
 import simra.androidtest.asadpour.data.model.MiniMovie;
 import simra.androidtest.asadpour.databinding.FragmentSearchBinding;
 import simra.androidtest.asadpour.ui.base.BaseFragment;
-import simra.androidtest.asadpour.ui.base.LoadMoreAdapter;
 import simra.androidtest.asadpour.util.EndlessRecyclerViewScrollListener;
 import simra.androidtest.asadpour.util.ViewUtil;
 
@@ -30,8 +32,8 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
 
     private SearchViewModel mViewModel;
     private MovieAdapter mAdapter;
-    private LoadMoreAdapter mLoadMoreAdapter;
     private EndlessRecyclerViewScrollListener mOnScrollListener;
+    private Snackbar mLoadMoreErrorSnack;
 
     @Override
     protected Function3<LayoutInflater, ViewGroup, Boolean, FragmentSearchBinding> getBindingInflater() {
@@ -42,7 +44,9 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new MovieAdapter(imdbID -> {
-//            NavHostFragment.findNavController(this).navigate();
+            if (mLoadMoreErrorSnack != null) mLoadMoreErrorSnack.dismiss();
+            NavHostFragment.findNavController(this)
+                    .navigate(SearchFragmentDirections.actionSearchFragmentToMovieDetailFragment(imdbID));
         });
     }
 
@@ -71,14 +75,21 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
     }
 
     private void showLoadMoreError(Throwable throwable) {
-//        mLoadMoreAdapter.setState(LoadMoreAdapter.State.ERROR);
+        if (mLoadMoreErrorSnack == null) {
+            mLoadMoreErrorSnack = Snackbar.make(getBinding().getRoot(), getString(R.string.msg_error_load_more), Snackbar.LENGTH_INDEFINITE);
+            mLoadMoreErrorSnack.setAction(R.string.action_try_again, v -> {
+                mViewModel.retryLoadMore();
+            });
+        }
+        if (!mLoadMoreErrorSnack.isShown())
+            mLoadMoreErrorSnack.show();
     }
 
     private void showLoadMoreProgress(Boolean show) {
-//        if (show)
-//            mLoadMoreAdapter.setState(LoadMoreAdapter.State.LOADING);
-//        else
-//            mLoadMoreAdapter.setState(LoadMoreAdapter.State.DONE);
+        if (show)
+            getBinding().horizontalProgress.setVisibility(View.VISIBLE);
+        else
+            getBinding().horizontalProgress.setVisibility(View.GONE);
     }
 
     private void setupRecyclerView() {
@@ -103,7 +114,7 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
     private void showError(Throwable throwable) {
         getBinding().recyclerView.setVisibility(View.GONE);
         getBinding().contentStateView.setVisibility(View.VISIBLE);
-        getBinding().contentStateView.showError(throwable.getLocalizedMessage(), this::performSearch);
+        getBinding().contentStateView.showError(getString(R.string.msg_error_general), this::performSearch);
     }
 
     private void showProgress(Boolean show) {

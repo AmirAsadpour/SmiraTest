@@ -16,12 +16,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import simra.androidtest.asadpour.BuildConfig;
+import simra.androidtest.asadpour.data.model.Movie;
 import simra.androidtest.asadpour.data.model.response.SearchResponse;
 
 public interface WebService {
 
     @GET("/")
     Single<SearchResponse> searchMovies(@Query("s") String query, @Query("Page") int page);
+
+    @GET("/")
+    Single<Movie> getMovieDetail(@Query("i") String movieId);
 
     class Creator {
         public static String ENDPOINT = "https://www.omdbapi.com/";

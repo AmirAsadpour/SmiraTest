@@ -13,6 +13,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 import simra.androidtest.asadpour.data.model.MiniMovie;
 import simra.androidtest.asadpour.data.repository.MovieRepository;
 import simra.androidtest.asadpour.ui.base.BaseViewModel;
+import simra.androidtest.asadpour.util.SingleLiveEvent;
 
 public class SearchViewModel extends BaseViewModel {
 
@@ -20,12 +21,12 @@ public class SearchViewModel extends BaseViewModel {
 
     private final MutableLiveData<List<MiniMovie>> mMovies = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<Boolean> mShowProgress = new MutableLiveData<>();
-    private final MutableLiveData<Throwable> mShowError = new MutableLiveData<>();
+    private final SingleLiveEvent<Throwable> mShowError = new SingleLiveEvent<>();
 
     private String mCurrentQuery = "";
 
     private final MutableLiveData<Boolean> mLoadMoreProgress = new MutableLiveData<>();
-    private final MutableLiveData<Throwable> mLoadMoreError = new MutableLiveData<>();
+    private final SingleLiveEvent<Throwable> mLoadMoreError = new SingleLiveEvent<>();
 
     private Disposable mInitialSearchDisposable;
 
@@ -63,10 +64,10 @@ public class SearchViewModel extends BaseViewModel {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((miniMovies, throwable) -> {
+                    lastLoadedPage = 1;
                     mShowProgress.setValue(false);
                     if (miniMovies != null) {
                         mCurrentQuery = query;
-                        lastLoadedPage = 1;
                         mMovies.setValue(miniMovies);
                     } else {
                         mShowError.setValue(throwable);
@@ -81,9 +82,9 @@ public class SearchViewModel extends BaseViewModel {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((miniMovies, throwable) -> {
+                    lastLoadedPage = page;
                     mLoadMoreProgress.setValue(false);
                     if (miniMovies != null) {
-                        lastLoadedPage = page;
                         List<MiniMovie> newList = mMovies.getValue();
                         newList.addAll(miniMovies);
                         mMovies.setValue(newList);
@@ -91,5 +92,9 @@ public class SearchViewModel extends BaseViewModel {
                         mLoadMoreError.setValue(throwable);
                     }
                 }));
+    }
+
+    public void retryLoadMore() {
+        onLoadMore(lastLoadedPage);
     }
 }

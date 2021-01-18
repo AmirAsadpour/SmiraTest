@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">SimraTest-Asadpour</string>
     <string name="hint_search">Search...</string>
-    <string name="msg_error_general">There wan an error</string>
+    <string name="msg_error_general">Something went wrong!</string>
     <string name="action_try_again">Try Again</string>
     <string name="label_year">Year: %s</string>
+    <string name="label_released">Released: %s</string>
+    <string name="label_director">Director: %s</string>
+    <string name="label_actors">Actors</string>
+    <string name="label_plot">Plot</string>
+    <string name="label_ratings">Ratings</string>
+    <string name="msg_error_load_more">Couldn\'t load more items</string>
 </resources>

@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.functions.Function;
 import simra.androidtest.asadpour.data.model.MiniMovie;
+import simra.androidtest.asadpour.data.model.Movie;
 import simra.androidtest.asadpour.data.model.response.SearchResponse;
 import simra.androidtest.asadpour.data.remote.WebService;
 
@@ -24,5 +25,9 @@ public class MovieRepository {
 
     public Single<List<MiniMovie>> searchMovies(String query, int page) {
         return webService.searchMovies(query, page).map(SearchResponse::getMovies);
+    }
+
+    public Single<Movie> getMovieDetail(String imdbId) {
+        return webService.getMovieDetail(imdbId);
     }
 }

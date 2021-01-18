@@ -9,5 +9,18 @@
         android:id="@+id/searchFragment"
         android:name="simra.androidtest.asadpour.ui.search.SearchFragment"
         android:label="Search Fragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="simra.androidtest.asadpour.ui.detail.MovieDetailFragment"
+        android:label="MovieDetailFragment"
+        tools:layout="@layout/fragment_movie_detail" >
+        <argument
+            android:name="imdbID"
+            app:argType="string" />
+    </fragment>
 </navigation>
